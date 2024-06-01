@@ -208,7 +208,7 @@ create_collection() {
     printf "    * Remove the existed 'default' Qdrant collection ...\n\n"
     cd $gaianet_base_dir
     # remove the collection if it exists
-    del_response=$(curl --noproxy localhost -s -X DELETE http://localhost:6333/collections/$embedding_collection_name \
+    del_response=$(curl -s -X DELETE http://localhost:6333/collections/$embedding_collection_name \
         -H "Content-Type: application/json")
 
     curl_exit_status=$?
@@ -251,7 +251,7 @@ create_collection() {
         printf "      The process may take a few minutes. Please wait ...\n"
         # Import the default.snapshot file
         cd $gaianet_base_dir
-        response=$(curl --noproxy localhost -s -X POST http://localhost:6333/collections/$embedding_collection_name/snapshots/upload?priority=snapshot \
+        response=$(curl -s -X POST http://localhost:6333/collections/$embedding_collection_name/snapshots/upload?priority=snapshot \
             -H 'Content-Type:multipart/form-data' \
             -F 'snapshot=@default.snapshot')
         sleep 5
